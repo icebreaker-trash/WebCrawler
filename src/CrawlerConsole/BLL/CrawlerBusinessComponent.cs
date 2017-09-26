@@ -51,7 +51,7 @@ namespace CrawlerConsole.BLL
                 var city = obj as string;
                 if (city == null) return;
                 
-                var list = dbContext.T_ArriveCity.OrderByDescending(x => x.CityName);
+                var list = dbContext.T_ArriveCity.OrderByDescending(x => x.CityName).ToList();
                 if (!list.Any()) return;
                 {
                     var item = dbContext.T_DepartureCity.FirstOrDefault(x => x.CityName == city);
@@ -209,7 +209,7 @@ namespace CrawlerConsole.BLL
                                     #endregion
 
                                     sum += AddLineInfo(city, t1.CityName, port, lineTitle, days, scenic, hotels, supplier, pmRecommendation, url, travelNumber, commentNumber, t, cityCode);
-                                    dbContext.SaveChanges();
+                                    //dbContext.SaveChanges();
                                 }
                                 #endregion
 
@@ -313,7 +313,7 @@ namespace CrawlerConsole.BLL
                 if (!string.IsNullOrEmpty(Groupdate))
                 {
                     Guid groupPriceGuid = Guid.NewGuid();
-                    dbContext.Entry<GroupPrice>(new GroupPrice()
+                    dbContext.T_GroupPrice.Add(new GroupPrice()
                     {
                         Id = groupPriceGuid,
                         Lineid = lineguid,
@@ -321,8 +321,18 @@ namespace CrawlerConsole.BLL
                         AdultPrice = adultPrice,
                         ChildPrice = childPrice
 
+                    });
 
-                    }).State = EntityState.Added;
+                    //dbContext.Entry<GroupPrice>(new GroupPrice()
+                    //{
+                    //    Id = groupPriceGuid,
+                    //    Lineid = lineguid,
+                    //    GroupDate = Groupdate,
+                    //    AdultPrice = adultPrice,
+                    //    ChildPrice = childPrice
+
+
+                    //}).State = EntityState.Added;
                 }
             }
             dbContext.SaveChanges();

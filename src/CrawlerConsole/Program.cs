@@ -28,6 +28,8 @@ namespace CrawlerConsole
             Timer timer3 = new Timer(new TimerCallback(mainAction), "镇江", 0, rd.Next(100, 1000));
             Timer timer4 = new Timer(new TimerCallback(mainAction), "漳州", 0, rd.Next(100, 1000));
 
+            Console.ReadKey();
+
 
         }
 
