@@ -84,6 +84,14 @@
     <Compile Include="Migrations\201709260720435_didalitteChange.Designer.cs">
       <DependentUpon>201709260720435_didalitteChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709260821037_addwillcascadeondelete.cs" />
+    <Compile Include="Migrations\201709260821037_addwillcascadeondelete.Designer.cs">
+      <DependentUpon>201709260821037_addwillcascadeondelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709260831228_what.cs" />
+    <Compile Include="Migrations\201709260831228_what.Designer.cs">
+      <DependentUpon>201709260831228_what.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DAL\CrawlerDbContext.cs" />
     <Compile Include="Model\ParseJson.cs" />
@@ -110,6 +118,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709260720435_didalitteChange.resx">
       <DependentUpon>201709260720435_didalitteChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709260821037_addwillcascadeondelete.resx">
+      <DependentUpon>201709260821037_addwillcascadeondelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709260831228_what.resx">
+      <DependentUpon>201709260831228_what.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

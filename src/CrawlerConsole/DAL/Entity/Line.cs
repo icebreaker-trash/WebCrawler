@@ -47,6 +47,6 @@ namespace CrawlerConsole.DAL.Entity
 
         public string PmRecommendation { get; set; }
 
-        public virtual ICollection<GroupPrice> GroupPrices { get; set; }
+        //public virtual ICollection<GroupPrice> GroupPrices { get; set; }
     }
 }

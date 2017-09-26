@@ -23,7 +23,7 @@ namespace CrawlerConsole.DAL.Entity
 
         public double ChildPrice { get; set; }
 
-        [ForeignKey(nameof(Lineid))]
-        public virtual Line Line { get; set; }
+        //[ForeignKey(nameof(Lineid))]
+        //public virtual Line Line { get; set; }
     }
 }

@@ -43,7 +43,7 @@ namespace CrawlerConsole
         public string LowestPriceName { get; set; }
         public int MobileOnlyFlag { get; set; }
         public int SharingPromotionId { get; set; }
-        public int sharingPreferential { get; set; }
+        public int SharingPreferential { get; set; }
         public Stockinfo StockInfo { get; set; }
         public string WeekDay { get; set; }
         public int IsRealTimePrice { get; set; }
