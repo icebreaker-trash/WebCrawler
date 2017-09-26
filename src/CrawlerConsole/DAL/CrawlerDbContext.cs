@@ -28,6 +28,7 @@ namespace CrawlerConsole.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ArriveCityConfig());
+            modelBuilder.Entity<GroupPrice>().HasRequired(g => g.Line).WithMany(l => l.GroupPrices).WillCascadeOnDelete(true);
             //base.
         }
 

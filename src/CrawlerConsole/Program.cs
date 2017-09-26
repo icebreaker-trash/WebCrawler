@@ -23,8 +23,11 @@ namespace CrawlerConsole
             CrawlerBusinessComponent bc = new CrawlerBusinessComponent();
             Random rd = new Random(System.DateTime.Now.Millisecond);
             Action<object> mainAction = (item) => bc.DownLineInfo(item);
-            Timer timer = new Timer(new TimerCallback(mainAction), "苏州", 0, rd.Next(100, 1000));
-            Timer timer2 = new Timer(new TimerCallback(mainAction), "上海", 0, rd.Next(100, 1000));
+            Timer timer = new Timer(new TimerCallback(mainAction), "重庆", 0, rd.Next(100, 1000));
+            Timer timer2 = new Timer(new TimerCallback(mainAction), "郑州", 0, rd.Next(100, 1000));
+            Timer timer3 = new Timer(new TimerCallback(mainAction), "镇江", 0, rd.Next(100, 1000));
+            Timer timer4 = new Timer(new TimerCallback(mainAction), "漳州", 0, rd.Next(100, 1000));
+
 
         }
 

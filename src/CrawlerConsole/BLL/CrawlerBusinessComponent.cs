@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,23 +20,24 @@ namespace CrawlerConsole.BLL
     {
 
         #region 定义一些参数
-        string port = string.Empty;
-        string lineTitle = string.Empty;
-        string days = string.Empty;
-        string scenic = string.Empty;
-        string hotels = string.Empty;
-        string supplier = string.Empty;
-        string pmRecommendation = string.Empty;
-        //string connectionString = ConfigurationManager.ConnectionStrings["DBW"].ConnectionString;
-        //string connectionString = "server=192.168.0.210; database=CRAWLER; uid=sa; pwd=123qwe!@#";
-        int sum = 0;
-        int travelNumber = 0;
-        int commentNumber = 0;
-        string url = string.Empty;
-        string urlPrice = string.Empty;
-        string Groupdate =string.Empty;
-        int adultPrice = 0;
-        int childPrice = 0;
+
+        private const int FirstPage = 1;
+        private const int LastPage = 35;
+        private string port = string.Empty;
+        private string lineTitle = string.Empty;
+        private string days = string.Empty;
+        private string scenic = string.Empty;
+        private string hotels = string.Empty;
+        private string supplier = string.Empty;
+        private string pmRecommendation = string.Empty;
+        private int sum = 0;
+        private int travelNumber = 0;
+        private int commentNumber = 0;
+        private string url = string.Empty;
+        private string urlPrice = string.Empty;
+        private string Groupdate =string.Empty;
+        private int adultPrice = 0;
+        private int childPrice = 0;
         private CrawlerDbContext dbContext;
         #endregion
 
@@ -45,30 +47,31 @@ namespace CrawlerConsole.BLL
             using (dbContext = new CrawlerDbContext())
             {
                 #region CodeCore
-                string City = (string)obj ;
-                List<ArriveCity> list = GetArriveCity();
-                if (list.Count > 0)
+
+                var city = obj as string;
+                if (city == null) return;
+                
+                var list = dbContext.T_ArriveCity.OrderByDescending(x => x.CityName);
+                if (!list.Any()) return;
                 {
-                    string cityShorthand = GetCityShorthandByCityName(City);
-                    string cityCode = GetCityCodeByCityName(City);
+                    var item = dbContext.T_DepartureCity.FirstOrDefault(x => x.CityName == city);
+                    if (item==null) return;
+                    string cityShorthand = item.Abbreviation;
+                    string cityCode = item.CityCode; 
                     foreach (var t1 in list)
                     {
-                        //if (!string.IsNullOrWhiteSpace(txtSetOutCityId.Text) && !string.IsNullOrWhiteSpace(txtArriveAtCityId.Text) && (txtSetOutCityId.Text != txtArriveAtCityId.Text))
-                        //if (!string.IsNullOrWhiteSpace(txtSetOutCityId.Text) && (txtSetOutCityId.Text != list[x].CityName))
-                        if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(cityShorthand))
+                        if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(cityShorthand))
                         {
                             var webclient = new WebClient { Encoding = System.Text.Encoding.UTF8 };
                             //定义以UTF-8格式接收文本信息，规避WebClient接收文本信息时夹带乱码问题
-
-
-                            for (int j = 1; j <= 35; j++)
+                            #region 循环体
+                            for (var j = FirstPage; j <= LastPage; j++)
                             {
                                 url =
-                                    // string.Format("http://www.tuniu.com/package/api/flight?productId=210177243&departDate=2017-09-19&departCityCode=2500&backCityCode=2500&bookCityCode=2500&adultNum=2&childNum=0&freeChildNum=0");
-                                    $"http://s.tuniu.com/search_complex/pkg-{cityShorthand}-0-{t1.CityName}/{j}/";
+                                // string.Format("http://www.tuniu.com/package/api/flight?productId=210177243&departDate=2017-09-19&departCityCode=2500&backCityCode=2500&bookCityCode=2500&adultNum=2&childNum=0&freeChildNum=0");
+                                 $"http://s.tuniu.com/search_complex/pkg-{cityShorthand}-0-{t1.CityName}/{j}/";
                                 //string.Format("http://www.tuniu.com//package/api/calendar?productId=210177038&bookCityCode=1615&departCityCode=2500&backCityCode=2500");
                                 var html = webclient.DownloadString(url);
-
                                 #region 先判断是否是自助游线路
 
                                 Regex reg = new Regex(@"<div class=""crumbs"">(?<key>[\s\S]*?)</div>");
@@ -205,7 +208,7 @@ namespace CrawlerConsole.BLL
                                     }
                                     #endregion
 
-                                    sum += AddLineInfo(City, t1.CityName, port, lineTitle, days, scenic, hotels, supplier, pmRecommendation, url, travelNumber, commentNumber, t, cityCode);
+                                    sum += AddLineInfo(city, t1.CityName, port, lineTitle, days, scenic, hotels, supplier, pmRecommendation, url, travelNumber, commentNumber, t, cityCode);
                                     dbContext.SaveChanges();
                                 }
                                 #endregion
@@ -215,15 +218,17 @@ namespace CrawlerConsole.BLL
                                     break;
                                 }
                             }
+
+                            #endregion
                         }
                         else
                         {
                             Console.WriteLine(@"当前数据中无此出发城市！");
                         }
                     }
-                    Console.WriteLine($@"本城市{City}执行成功，共抓取线路{sum}条");
-
+                    Console.WriteLine($@"本城市{city}执行成功，共抓取线路{sum}条");
                 }
+
                 #endregion
             }
 
@@ -258,31 +263,17 @@ namespace CrawlerConsole.BLL
 
         #endregion
 
-        #region 根据出发城市中文名获取简写
-        public string GetCityShorthandByCityName(string cityName)
-        {
-            return dbContext.T_DepartureCity.FirstOrDefault(x => x.CityName == cityName)?.Abbreviation;
 
-        }
-        #endregion
-
-        #region 根据出发城市中文名获取CityCode
-        public string GetCityCodeByCityName(string cityName)
-        {
-            return dbContext.T_DepartureCity.FirstOrDefault(x => x.CityName == cityName)?.CityCode;
-
-        }
-        #endregion
 
         #region 写入数据
         public int AddLineInfo(string departCity, string arriveCity, string port, string lineTitle, string days, string scenic, string hotels, string supplier, string pmRecommendation, string url, int soldqty, int commentNumber, string lineNo, string cityCode)
         {
             int num = 0;
-            Guid Lineguid = Guid.NewGuid();
+            Guid lineguid = Guid.NewGuid();
             DateTime date = DateTime.Now;
             dbContext.T_Line.Add(new Line()
             {
-                Id = Lineguid,
+                Id = lineguid,
                 SiteName = "途牛",
                 TypeName = "自助游",
                 Departcity = departCity,
@@ -325,7 +316,7 @@ namespace CrawlerConsole.BLL
                     dbContext.Entry<GroupPrice>(new GroupPrice()
                     {
                         Id = groupPriceGuid,
-                        Lineid = Lineguid,
+                        Lineid = lineguid,
                         GroupDate = Groupdate,
                         AdultPrice = adultPrice,
                         ChildPrice = childPrice
@@ -334,6 +325,7 @@ namespace CrawlerConsole.BLL
                     }).State = EntityState.Added;
                 }
             }
+            dbContext.SaveChanges();
 
             #endregion
 
@@ -341,11 +333,5 @@ namespace CrawlerConsole.BLL
         }
         #endregion
 
-        #region 获取到达城市
-        public List<ArriveCity> GetArriveCity()
-        {
-            return dbContext.T_ArriveCity.OrderByDescending(x => x.CityName).ToList();
-        }
-        #endregion
     }
 }
