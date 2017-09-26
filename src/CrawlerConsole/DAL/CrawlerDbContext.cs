@@ -23,9 +23,12 @@ namespace CrawlerConsole.DAL
 
         public virtual DbSet<ArriveCity> T_ArriveCity { get; set; }
 
+        public virtual DbSet<DepartureCity> T_DepartureCity { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            modelBuilder.Configurations.Add(new ArriveCityConfig());
+            //base.
         }
 
         //为您要在模型中包含的每种实体类型都添加 DbSet。有关配置和使用 Code First  模型

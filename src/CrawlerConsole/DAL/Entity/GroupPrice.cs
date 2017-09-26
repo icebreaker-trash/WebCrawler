@@ -15,7 +15,7 @@ namespace CrawlerConsole.DAL.Entity
         public Guid Lineid { get; set; }
 
 
-        public DateTime GroupDate { get; set; }
+        public string GroupDate { get; set; }
 
 
         public double AdultPrice { get; set; }

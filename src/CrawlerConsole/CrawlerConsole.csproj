@@ -61,14 +61,26 @@
   <ItemGroup>
     <Compile Include="BLL\CrawlerBusinessComponent.cs" />
     <Compile Include="DAL\Entity\ArriveCity.cs" />
+    <Compile Include="DAL\Entity\DepartureCity.cs" />
     <Compile Include="DAL\Entity\GroupPrice.cs" />
     <Compile Include="DAL\Entity\Line.cs" />
     <Compile Include="Migrations\201709260244158_initialize.cs" />
     <Compile Include="Migrations\201709260244158_initialize.Designer.cs">
       <DependentUpon>201709260244158_initialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709260542011_AddATable.cs" />
+    <Compile Include="Migrations\201709260542011_AddATable.Designer.cs">
+      <DependentUpon>201709260542011_AddATable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709260558207_AddANewtable.cs" />
+    <Compile Include="Migrations\201709260558207_AddANewtable.Designer.cs">
+      <DependentUpon>201709260558207_AddANewtable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709260559578_ADdaNewTableda.cs" />
+    <Compile Include="Migrations\201709260559578_ADdaNewTableda.Designer.cs">
+      <DependentUpon>201709260559578_ADdaNewTableda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\ArriveCityEntity.cs" />
     <Compile Include="DAL\CrawlerDbContext.cs" />
     <Compile Include="Model\ParseJson.cs" />
     <Compile Include="Program.cs" />
@@ -82,6 +94,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201709260244158_initialize.resx">
       <DependentUpon>201709260244158_initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709260542011_AddATable.resx">
+      <DependentUpon>201709260542011_AddATable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709260558207_AddANewtable.resx">
+      <DependentUpon>201709260558207_AddANewtable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709260559578_ADdaNewTableda.resx">
+      <DependentUpon>201709260559578_ADdaNewTableda.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
+using CrawlerConsole.BLL;
 using CrawlerConsole.DAL;
 
 
@@ -17,11 +19,13 @@ namespace CrawlerConsole
 
         static void Main(string[] args)
         {
-            using (CrawlerDbContext dbContext = new CrawlerDbContext())
-            {
-                
-                //Task task = Task.Run( );
-            }
+
+            CrawlerBusinessComponent bc = new CrawlerBusinessComponent();
+            Random rd = new Random(System.DateTime.Now.Millisecond);
+            Action<object> mainAction = (item) => bc.DownLineInfo(item);
+            Timer timer = new Timer(new TimerCallback(mainAction), "苏州", 0, rd.Next(100, 1000));
+            Timer timer2 = new Timer(new TimerCallback(mainAction), "上海", 0, rd.Next(100, 1000));
+
         }
 
 

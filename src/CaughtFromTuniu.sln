@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownLineInfo", "DownLineInf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerConsole", "CrawlerConsole\CrawlerConsole.csproj", "{2B4DB58E-2AE9-4912-98AA-80291EA8F2DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerConsoleTests", "CrawlerConsoleTests\CrawlerConsoleTests.csproj", "{2B50F156-EAA6-43FB-9B03-33EC19C446D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2B4DB58E-2AE9-4912-98AA-80291EA8F2DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B4DB58E-2AE9-4912-98AA-80291EA8F2DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B4DB58E-2AE9-4912-98AA-80291EA8F2DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B50F156-EAA6-43FB-9B03-33EC19C446D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B50F156-EAA6-43FB-9B03-33EC19C446D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B50F156-EAA6-43FB-9B03-33EC19C446D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B50F156-EAA6-43FB-9B03-33EC19C446D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
